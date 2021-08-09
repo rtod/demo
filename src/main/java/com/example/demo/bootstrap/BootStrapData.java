@@ -2,8 +2,10 @@ package com.example.demo.bootstrap;
 
 import com.example.demo.domain.Author;
 import com.example.demo.domain.Book;
+import com.example.demo.domain.Publisher;
 import com.example.demo.repositories.AuthorRepository;
 import com.example.demo.repositories.BookRepository;
+import com.example.demo.repositories.PublisherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +14,12 @@ public class BootStrapData implements CommandLineRunner {
 
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
+    private final PublisherRepository publisherRepository;
 
-    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.publisherRepository = publisherRepository;
     }
 
     @Override
@@ -39,7 +43,11 @@ public class BootStrapData implements CommandLineRunner {
         authorRepository.save(rod);
         bookRepository.save(noEJB);
 
+        Publisher cartagena = new Publisher();
+        publisherRepository.save(cartagena);
+
         System.out.println("Started in Bootstrap");
         System.out.println("Number of Books: " + bookRepository.count());
+        System.out.println("Number of Publishers: " + publisherRepository.count());
     }
 }
